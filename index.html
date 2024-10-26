@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Manager</title>
+  <link rel="stylesheet" href="hackathon.css">
+  <style>
+    /* Basic styles for completed tasks */
+    .completed {
+        text-decoration: line-through;
+        color: grey;
+    }
+    .task-item {
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin: 5px 0;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    .task-list {
+        margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Section -->
+  <header>
+    <h1>Task Manager</h1>
+    <p>Organize and track your daily tasks efficiently.</p>
+  </header>
+  
+  <!-- Task Input Section -->
+  <section class="task-input-section">
+    <h2>Add New Task</h2>
+    <form id="taskForm">
+      <label for="taskTitle">Task Title:</label>
+      <input type="text" id="taskTitle" name="taskTitle" placeholder="Enter task title" required>
+      
+      <label for="taskDescription">Description:</label>
+      <textarea id="taskDescription" name="taskDescription" placeholder="Enter task description" rows="4" required></textarea>
+      
+      <label for="taskDeadline">Deadline:</label>
+      <input type="date" id="taskDeadline" name="taskDeadline" required>
+      
+      <label for="taskExperience">Experience Required:</label>
+      <input type="text" id="taskExperience" name="taskExperience" placeholder="Enter experience required (e.g., begineers , intermediate, expert)" required>
+      
+      <button type="submit" class="add-task-button">Add Task</button>
+    </form>
+  </section>
+
+  <!-- Task List Section -->
+  <section class="task-list-section">
+    <h2>Task List</h2>
+    <div id="taskList" class="task-list">
+      <!-- Dynamic task items will be displayed here -->
+    </div>
+  </section>
+
+  <!-- Scripts -->
+  <script>
+    document.getElementById("taskForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      
+      const title = document.getElementById("taskTitle").value;
+      const description = document.getElementById("taskDescription").value;
+      const deadline = document.getElementById("taskDeadline").value;
+      const experience = document.getElementById("taskExperience").value;
+
+      // Automatically determine priority based on deadline
+      const priority = determinePriority(deadline);
+
+      addTaskToList(title, description, deadline, priority, 'Auto-Categorized'); // Assuming category is auto-categorized
+      
+      document.getElementById("taskForm").reset();
+    });
+
+    function determinePriority(deadline) {
+      const today = new Date();
+      const dueDate = new Date(deadline);
+      const timeDiff = dueDate - today; // Difference in milliseconds
+      const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24)); // Convert to days
+
+      if (daysDiff < 0) {
+        return 'Overdue';
+      } else if (daysDiff <= 2) {
+        return 'High';
+      } else if (daysDiff <= 7) {
+        return 'Intermediate';
+      } else {
+        return 'Low';
+      }
+    }
+
+    function addTaskToList(title, description, deadline, priority, category) {
+      const taskList = document.getElementById("taskList");
+      
+      const taskItem = document.createElement("div");
+      taskItem.className = "task-item";
+      
+      taskItem.innerHTML = `
+        <h3>${title}</h3>
+        <p><strong>Description:</strong> ${description}</p>
+        <p><strong>Deadline:</strong> ${deadline}</p>
+        <p><strong>Priority:</strong> ${priority}</p>
+        <p><strong>Category:</strong> ${category}</p>
+        <button class="mark-complete-button" onclick="markComplete(this)">Mark Complete</button>
+        <button class="delete-task-button" onclick="deleteTask(this)">Delete Task</button>
+      `;
+      
+      taskList.appendChild(taskItem);
+    }
+
+    function markComplete(button) {
+      const taskItem = button.parentElement;
+      taskItem.classList.toggle("completed");
+    }
+
+    function deleteTask(button) {
+      const taskItem = button.parentElement;
+      taskItem.remove();
+    }
+  </script>
+</body>
+</html>

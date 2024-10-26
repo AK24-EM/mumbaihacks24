@@ -1,0 +1,135 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Header Styles */
+header {
+    background: #35424a;
+    color: #ffffff;
+    padding: 20px 0;
+    text-align: center;
+    border-radius: 5px;
+}
+
+/* Task Input Section */
+.task-input-section {
+    background: #ffffff;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Task Input Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="date"],
+select,
+textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.add-task-button {
+    background: #35424a;
+    color: #ffffff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.add-task-button:hover {
+    background: #455a66;
+}
+
+/* Task List Section */
+.task-list-section {
+    margin-top: 20px;
+}
+
+/* Task Item Styles */
+.task-item {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    background-color: #ffffff;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.task-item h3 {
+    margin: 0 0 10px;
+}
+
+/* Task Item Button Styles */
+.mark-complete-button,
+.delete-task-button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 5px;
+    transition: background 0.3s ease;
+}
+
+.mark-complete-button:hover {
+    background: #0056b3;
+}
+
+.delete-task-button {
+    background: #dc3545;
+}
+
+.delete-task-button:hover {
+    background: #c82333;
+}
+
+/* Completed Task Styles */
+.completed {
+    text-decoration: line-through;
+    color: grey;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    .task-input-section,
+    .task-item {
+        padding: 15px;
+    }
+
+    .add-task-button,
+    .mark-complete-button,
+    .delete-task-button {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    form {
+        flex-direction: column;
+    }
+}
